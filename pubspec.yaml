@@ -39,6 +39,11 @@ dependencies:
   flutter_native_splash: ^2.2.4
   shared_preferences: ^2.0.15
   cached_network_image: ^3.2.1
+  font_awesome_flutter: ^10.1.0
+  flutter_secure_storage: ^5.0.2
+  flutter_bloc: ^8.0.1
+  equatable: ^2.0.3
+  google_fonts: ^3.0.1
 
 dev_dependencies:
   flutter_test:

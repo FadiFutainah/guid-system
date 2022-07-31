@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:app/config/exceptions.dart';
-import 'package:app/data/services/rest.dart';
+import 'package:app/application/utils/exceptions.dart';
+import 'package:app/data/helpers/rest.dart';
 import 'package:http/http.dart' as http;
 
 class RestApiService extends Rest {
