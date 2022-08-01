@@ -23,12 +23,51 @@ class RestApiService extends Rest {
           )
           .timeout(timeoutDuration);
       return returnResponse(response);
-    } on SocketException {
+    } catch (e) {
+      throwException(e);
+    }
+  }
+
+  @override
+  post(
+    String endpoint,
+    Map<String, dynamic> body, {
+    Map<String, String> headers = Rest.defaultHeaders,
+  }) async {
+    try {
+      var uri = Uri.parse(serverAddress + endpoint);
+      var response = await http
+          .post(
+            uri,
+            body: body,
+            headers: headers,
+          )
+          .timeout(timeoutDuration);
+      return returnResponse(response);
+    } catch (e) {
+      throwException(e);
+    }
+  }
+
+  @override
+  delete(String endpoint) {
+    // TODO: implement delete
+    throw UnimplementedError();
+  }
+
+  @override
+  put(String endpoint) {
+    // TODO: implement put
+    throw UnimplementedError();
+  }
+
+  void throwException(Object e) {
+    if (e is SocketException) {
       throw InternetConnectionException();
-    } on TimeoutException {
+    } else if (e is TimeoutException) {
       throw WeakInternetConnection();
-    } on Exception {
-      throw AppException('اتصال ضعيف بالشبكة');
+    } else {
+      throw AppException('unexpected error happend');
     }
   }
 
