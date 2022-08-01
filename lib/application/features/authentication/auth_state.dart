@@ -13,19 +13,19 @@ class Unauthenticated extends AuthState {}
 
 class Loading extends AuthState {}
 
-class AuthenticationFailed extends AuthState {
+class LoginFailed extends AuthState {
   final String error;
 
-  AuthenticationFailed(this.error);
+  LoginFailed(this.error);
 
   @override
   List<Object> get props => [error];
 }
 
-class UnAuthenticationFailed extends AuthState {
+class LogoutFailed extends AuthState {
   final String error;
 
-  UnAuthenticationFailed(this.error);
+  LogoutFailed(this.error);
 
   @override
   List<Object> get props => [error];

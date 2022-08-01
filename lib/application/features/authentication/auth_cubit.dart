@@ -25,7 +25,7 @@ class AuthCubit extends Cubit<AuthState> {
         await _userRepository.login(username, password);
 
     if (response.hasError) {
-      emit(AuthenticationFailed(response.data));
+      emit(LoginFailed(response.data));
     } else {
       emit(Authenticated());
     }
@@ -35,7 +35,7 @@ class AuthCubit extends Cubit<AuthState> {
     final ResponseModel response = await _userRepository.logout();
 
     if (response.hasError) {
-      emit(UnAuthenticationFailed(response.data));
+      emit(LogoutFailed(response.data));
     } else {
       emit(Unauthenticated());
     }
