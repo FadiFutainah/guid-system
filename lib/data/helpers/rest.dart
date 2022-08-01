@@ -10,4 +10,7 @@ abstract class Rest {
   Rest(this.serverAddress);
 
   dynamic get(String endpoint);
+  dynamic post(String endpoint, Map<String, dynamic> body);
+  dynamic put(String endpoint);
+  dynamic delete(String endpoint);
 }
