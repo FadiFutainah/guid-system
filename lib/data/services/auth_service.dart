@@ -2,27 +2,25 @@ import 'package:app/data/helpers/restapi_service.dart';
 import 'package:app/data/services/local_storage.dart';
 
 class AuthService {
-  final RestApiService _restApi = RestApiService('http://127.0.0.1:8088/');
+  final RestApiService _restApi =
+      RestApiService('http://127.0.0.1:8088/auth/jwt/');
 
   Future<bool> validateToken(String token) async {
     try {
-      var response = await _restApi.post(
-        'auth/jwt/verify',
-        {'username': token},
-      );
-      return response;
+      await _restApi.post('verify', {'username': token});
+      return true;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<String> login(String username, String password) async {
+  Future<bool> login(String username, String password) async {
     try {
-      var response = await _restApi.post(
-        'auth/jwt/create',
+      await _restApi.post(
+        'create',
         {'username': username, 'password': password},
       );
-      return response;
+      return true;
     } catch (e) {
       rethrow;
     }
