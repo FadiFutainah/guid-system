@@ -1,8 +1,10 @@
-part of 'profile_dto.dart';
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 
 @immutable
 class ExperienceDto {
-  final String id;
+  final int id;
   final String name;
   final String type;
   final String description;
@@ -20,7 +22,7 @@ class ExperienceDto {
   });
 
   ExperienceDto copyWith({
-    String? id,
+    int? id,
     String? name,
     String? type,
     String? description,
@@ -45,21 +47,21 @@ class ExperienceDto {
       'name': name,
       'type': type,
       'description': description,
-      'start_date': startDate,
-      'end_date': endDate,
-      'is_certified': isCertified,
+      'startDate': startDate,
+      'endDate': endDate,
+      'isCertified': isCertified,
     };
   }
 
   factory ExperienceDto.fromMap(Map<String, dynamic> map) {
     return ExperienceDto(
-      id: map['id'] ?? '',
+      id: map['id']?.toInt() ?? 0,
       name: map['name'] ?? '',
       type: map['type'] ?? '',
       description: map['description'] ?? '',
-      startDate: map['start_date'] ?? '',
-      endDate: map['end_date'] ?? '',
-      isCertified: map['is_certified'] ?? false,
+      startDate: map['startDate'] ?? '',
+      endDate: map['endDate'] ?? '',
+      isCertified: map['isCertified'] ?? false,
     );
   }
 
@@ -71,5 +73,30 @@ class ExperienceDto {
   @override
   String toString() {
     return 'ExperienceDto(id: $id, name: $name, type: $type, description: $description, startDate: $startDate, endDate: $endDate, isCertified: $isCertified)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is ExperienceDto &&
+        other.id == id &&
+        other.name == name &&
+        other.type == type &&
+        other.description == description &&
+        other.startDate == startDate &&
+        other.endDate == endDate &&
+        other.isCertified == isCertified;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        name.hashCode ^
+        type.hashCode ^
+        description.hashCode ^
+        startDate.hashCode ^
+        endDate.hashCode ^
+        isCertified.hashCode;
   }
 }

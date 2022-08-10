@@ -1,8 +1,10 @@
-part of 'profile_dto.dart';
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 
 @immutable
 class MarkDto {
-  final String id;
+  final int id;
   final String subjectName;
   final String mark;
   final String date;
@@ -15,7 +17,7 @@ class MarkDto {
   });
 
   MarkDto copyWith({
-    String? id,
+    int? id,
     String? subjectName,
     String? mark,
     String? date,
@@ -31,7 +33,7 @@ class MarkDto {
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'subject_name': subjectName,
+      'subjectName': subjectName,
       'mark': mark,
       'date': date,
     };
@@ -39,8 +41,8 @@ class MarkDto {
 
   factory MarkDto.fromMap(Map<String, dynamic> map) {
     return MarkDto(
-      id: map['id'] ?? '',
-      subjectName: map['subject_name'] ?? '',
+      id: map['id']?.toInt() ?? 0,
+      subjectName: map['subjectName'] ?? '',
       mark: map['mark'] ?? '',
       date: map['date'] ?? '',
     );
@@ -54,5 +56,21 @@ class MarkDto {
   @override
   String toString() {
     return 'MarkDto(id: $id, subjectName: $subjectName, mark: $mark, date: $date)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is MarkDto &&
+        other.id == id &&
+        other.subjectName == subjectName &&
+        other.mark == mark &&
+        other.date == date;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^ subjectName.hashCode ^ mark.hashCode ^ date.hashCode;
   }
 }

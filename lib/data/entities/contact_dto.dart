@@ -1,8 +1,11 @@
-part of 'profile_dto.dart';
+
+import 'dart:convert';
+
+import 'package:flutter/foundation.dart';
 
 @immutable
 class ContactDto {
-  final String id;
+  final int id;
   final String type;
   final String link;
   const ContactDto({
@@ -12,7 +15,7 @@ class ContactDto {
   });
 
   ContactDto copyWith({
-    String? id,
+    int? id,
     String? type,
     String? link,
   }) {
