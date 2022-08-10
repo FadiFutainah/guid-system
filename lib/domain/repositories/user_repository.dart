@@ -1,6 +1,6 @@
 import 'package:app/data/services/auth_service.dart';
 import 'package:app/data/services/local_storage.dart';
-import 'package:app/domain/entities/response_model.dart';
+import 'package:app/domain/models/response_model.dart';
 
 class UserRepository {
   final AuthService _authService = AuthService();
@@ -16,8 +16,8 @@ class UserRepository {
 
   Future<ResponseModel> login(String username, String password) async {
     try {
-      String data = await _authService.login(username, password);
-      return ResponseModel(data, false);
+      await _authService.login(username, password);
+      return ResponseModel('logged in successfully', false);
     } catch (e) {
       return ResponseModel(e.toString(), true);
     }

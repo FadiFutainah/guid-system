@@ -1,5 +1,5 @@
 import 'package:app/data/helpers/restapi_service.dart';
-import 'package:app/data/models/profile_dto.dart';
+import 'package:app/data/entities/profile_dto.dart';
 
 class ProfileProvider {
   final RestApiService _restApi =
