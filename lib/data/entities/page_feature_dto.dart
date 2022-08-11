@@ -1,10 +1,13 @@
 import 'dart:convert';
 
-class PageFeatureDto {
-  int id;
-  String name;
+import 'package:flutter/widgets.dart';
 
-  PageFeatureDto({
+@immutable
+class PageFeatureDto {
+  final int id;
+  final String name;
+
+  const PageFeatureDto({
     required this.id,
     required this.name,
   });
