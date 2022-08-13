@@ -1,0 +1,8 @@
+class AboutMeModel {
+  String preferences;
+  String services;
+  AboutMeModel({
+    required this.preferences,
+    required this.services,
+  });
+}

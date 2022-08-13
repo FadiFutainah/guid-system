@@ -1,34 +1,29 @@
-import 'package:app/data/entities/profile_dto.dart';
+import 'package:app/domain/models/profile_tool_model.dart';
+
+import 'member_model.dart';
+import 'project_feature_model.dart';
 
 class ProjectModel {
-  final int id;
-  final String title;
-  final String description;
-  final String position;
-  final String link;
-  final bool isCertified;
-  final String startDate;
-  final String endDate;
-
+  String name;
+  String position;
+  String photo;
+  String startDate;
+  String endDate;
+  String description;
+  String link;
+  List<MemberModel> members;
+  List<ProjectFeatureModel> features;
+  List<ProfileToolModel> tools;
   ProjectModel({
-    required this.id,
-    required this.title,
-    required this.description,
+    required this.name,
     required this.position,
-    required this.link,
-    required this.isCertified,
+    required this.photo,
     required this.startDate,
     required this.endDate,
+    required this.description,
+    required this.link,
+    required this.members,
+    required this.features,
+    required this.tools,
   });
-
-  factory ProjectModel.fromDto(ProjectDto dto) => ProjectModel(
-        id: dto.id,
-        title: dto.title,
-        description: dto.description,
-        position: dto.position,
-        link: dto.link,
-        isCertified: dto.isCertified,
-        startDate: dto.startDate,
-        endDate: dto.endDate,
-      );
 }

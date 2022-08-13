@@ -4,25 +4,24 @@ class Password extends FormzInput<String, String> {
   const Password.pure([String value = '']) : super.pure(value);
   const Password.dirty([String value = '']) : super.dirty(value);
 
-  static final _passwordRegex =
-      RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$');
+  static final _passwordRegex = RegExp(r'^.{4,}$');
 
   @override
   String? validator(String? value) {
-    return (value!.length > 8) ? null : 'invalid';
+    return _passwordRegex.hasMatch(value ?? '') ? null : 'invalid password';
   }
 }
 
-class Email extends FormzInput<String, String> {
-  const Email.pure([String value = '']) : super.pure(value);
-  const Email.dirty([String value = '']) : super.dirty(value);
+class Username extends FormzInput<String, String> {
+  const Username.pure([String value = '']) : super.pure(value);
+  const Username.dirty([String value = '']) : super.dirty(value);
 
-  static final _emailRegex = RegExp(
-    r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
+  static final _usernameRegex = RegExp(
+    r'^.{4,}$',
   );
 
   @override
   String? validator(String? value) {
-    return value!.length > 6 ? null : 'invalid';
+    return _usernameRegex.hasMatch(value ?? '') ? null : 'invalid username';
   }
 }
