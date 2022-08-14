@@ -14,7 +14,6 @@ class PageDto {
   final String title;
   final String background;
   final String icon;
-  final String viewTemplate;
   final String importanceAndAdvantages;
   final String adviceAndTools;
   final bool isFinished;
@@ -28,7 +27,6 @@ class PageDto {
     required this.title,
     required this.background,
     required this.icon,
-    required this.viewTemplate,
     required this.importanceAndAdvantages,
     required this.adviceAndTools,
     required this.isFinished,
@@ -43,7 +41,6 @@ class PageDto {
     String? title,
     String? background,
     String? icon,
-    String? viewTemplate,
     String? importanceAndAdvantages,
     String? adviceAndTools,
     bool? isFinished,
@@ -57,7 +54,6 @@ class PageDto {
       title: title ?? this.title,
       background: background ?? this.background,
       icon: icon ?? this.icon,
-      viewTemplate: viewTemplate ?? this.viewTemplate,
       importanceAndAdvantages:
           importanceAndAdvantages ?? this.importanceAndAdvantages,
       adviceAndTools: adviceAndTools ?? this.adviceAndTools,
@@ -75,7 +71,6 @@ class PageDto {
       'title': title,
       'background': background,
       'icon': icon,
-      'viewTemplate': viewTemplate,
       'importanceAndAdvantages': importanceAndAdvantages,
       'adviceAndTools': adviceAndTools,
       'isFinished': isFinished,
@@ -92,7 +87,6 @@ class PageDto {
       title: map['title'] ?? '',
       background: map['background'] ?? '',
       icon: map['icon'] ?? '',
-      viewTemplate: map['viewTemplate'] ?? '',
       importanceAndAdvantages: map['importanceAndAdvantages'] ?? '',
       adviceAndTools: map['adviceAndTools'] ?? '',
       isFinished: map['isFinished'] ?? false,
@@ -114,7 +108,7 @@ class PageDto {
 
   @override
   String toString() {
-    return 'PageDto(id: $id, title: $title, background: $background, icon: $icon, viewTemplate: $viewTemplate, importanceAndAdvantages: $importanceAndAdvantages, adviceAndTools: $adviceAndTools, isFinished: $isFinished, contents: $contents, features: $features, dependencyChildren: $dependencyChildren, referenceChildren: $referenceChildren)';
+    return 'PageDto(id: $id, title: $title, background: $background, icon: $icon, importanceAndAdvantages: $importanceAndAdvantages, adviceAndTools: $adviceAndTools, isFinished: $isFinished, contents: $contents, features: $features, dependencyChildren: $dependencyChildren, referenceChildren: $referenceChildren)';
   }
 
   @override
@@ -126,7 +120,6 @@ class PageDto {
         other.title == title &&
         other.background == background &&
         other.icon == icon &&
-        other.viewTemplate == viewTemplate &&
         other.importanceAndAdvantages == importanceAndAdvantages &&
         other.adviceAndTools == adviceAndTools &&
         other.isFinished == isFinished &&
@@ -142,7 +135,6 @@ class PageDto {
         title.hashCode ^
         background.hashCode ^
         icon.hashCode ^
-        viewTemplate.hashCode ^
         importanceAndAdvantages.hashCode ^
         adviceAndTools.hashCode ^
         isFinished.hashCode ^

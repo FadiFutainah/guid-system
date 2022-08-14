@@ -9,25 +9,25 @@ class MemberDto {
   final int id;
   final String position;
   final bool isAdmin;
-  final SmallProfileDto smallProfile;
+  final SmallProfileDto profile;
   const MemberDto({
     required this.id,
     required this.position,
     required this.isAdmin,
-    required this.smallProfile,
+    required this.profile,
   });
 
   MemberDto copyWith({
     int? id,
     String? position,
     bool? isAdmin,
-    SmallProfileDto? smallProfile,
+    SmallProfileDto? profile,
   }) {
     return MemberDto(
       id: id ?? this.id,
       position: position ?? this.position,
       isAdmin: isAdmin ?? this.isAdmin,
-      smallProfile: smallProfile ?? this.smallProfile,
+      profile: profile ?? this.profile,
     );
   }
 
@@ -36,7 +36,7 @@ class MemberDto {
       'id': id,
       'position': position,
       'isAdmin': isAdmin,
-      'smallProfile': smallProfile.toMap(),
+      'profile': profile.toMap(),
     };
   }
 
@@ -45,7 +45,7 @@ class MemberDto {
       id: map['id']?.toInt() ?? 0,
       position: map['position'] ?? '',
       isAdmin: map['isAdmin'] ?? false,
-      smallProfile: SmallProfileDto.fromMap(map['smallProfile']),
+      profile: SmallProfileDto.fromMap(map['profile']),
     );
   }
 
@@ -56,7 +56,7 @@ class MemberDto {
 
   @override
   String toString() {
-    return 'MemberDto(id: $id, position: $position, isAdmin: $isAdmin, smallProfile: $smallProfile)';
+    return 'MemberDto(id: $id, position: $position, isAdmin: $isAdmin, profile: $profile)';
   }
 
   @override
@@ -67,7 +67,7 @@ class MemberDto {
         other.id == id &&
         other.position == position &&
         other.isAdmin == isAdmin &&
-        other.smallProfile == smallProfile;
+        other.profile == profile;
   }
 
   @override
@@ -75,6 +75,6 @@ class MemberDto {
     return id.hashCode ^
         position.hashCode ^
         isAdmin.hashCode ^
-        smallProfile.hashCode;
+        profile.hashCode;
   }
 }

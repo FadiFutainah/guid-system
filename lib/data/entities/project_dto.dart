@@ -14,7 +14,7 @@ class ProjectDto {
   final String description;
   final String link;
   final String photo;
-  final String isCertified;
+  final bool isCertified;
   final String startDate;
   final String endDate;
   final List<MemberDto> memberships;
@@ -40,7 +40,7 @@ class ProjectDto {
     String? description,
     String? link,
     String? photo,
-    String? isCertified,
+    bool? isCertified,
     String? startDate,
     String? endDate,
     List<MemberDto>? memberships,

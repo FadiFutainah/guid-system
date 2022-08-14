@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 class MarkDto {
   final int id;
   final String subjectName;
-  final String mark;
+  final int mark;
   final String date;
 
   const MarkDto({
@@ -19,7 +19,7 @@ class MarkDto {
   MarkDto copyWith({
     int? id,
     String? subjectName,
-    String? mark,
+    int? mark,
     String? date,
   }) {
     return MarkDto(
