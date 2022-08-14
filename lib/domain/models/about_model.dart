@@ -7,6 +7,7 @@ class AboutModel {
   String email;
   String address;
   List<ContactModel> contacts;
+
   AboutModel({
     required this.gender,
     required this.birthDate,
@@ -15,4 +16,18 @@ class AboutModel {
     required this.address,
     required this.contacts,
   });
+
+  int calculateAge() {
+    int days = DateTime.now().difference(DateTime.parse(birthDate)).inDays;
+    int age = days ~/ 365;
+    if (days % 365 > 160) ++age;
+    return age;
+  }
+
+  String getGender() {
+    if (gender == 'M') {
+      return 'male';
+    }
+    return 'female';
+  }
 }

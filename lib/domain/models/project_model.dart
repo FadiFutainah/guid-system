@@ -11,6 +11,7 @@ class ProjectModel {
   String endDate;
   String description;
   String link;
+  bool isCertified;
   List<MemberModel> members;
   List<ProjectFeatureModel> features;
   List<ProfileToolModel> tools;
@@ -22,6 +23,7 @@ class ProjectModel {
     required this.endDate,
     required this.description,
     required this.link,
+    required this.isCertified,
     required this.members,
     required this.features,
     required this.tools,

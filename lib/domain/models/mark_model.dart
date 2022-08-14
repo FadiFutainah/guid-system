@@ -1,6 +1,6 @@
 class MarkModel {
   String name;
-  String mark;
+  int mark;
   String date;
   MarkModel({
     required this.name,
