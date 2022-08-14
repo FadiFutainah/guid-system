@@ -19,7 +19,7 @@ dependencies:
   shared_preferences: ^2.0.15
   cached_network_image: ^3.2.1
   font_awesome_flutter: ^10.1.0
-  flutter_secure_storage: ^5.0.2
+  # flutter_secure_storage: ^5.0.2
   flutter_bloc: ^8.0.1
   equatable: ^2.0.3
   google_fonts: ^3.0.1
@@ -30,6 +30,8 @@ dependencies:
     path: packages/authentication_repository
   user_repository:
     path: packages/user_repository
+  persistent_bottom_nav_bar: ^4.0.2
+  url_launcher: ^6.1.5
 
 dev_dependencies:
   flutter_test:
