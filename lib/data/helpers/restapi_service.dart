@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:app/application/utils/exceptions.dart';
 import 'package:app/data/helpers/rest.dart';
-import 'package:app/data/services/local_storage.dart';
 import 'package:http/http.dart' as http;
 
 class RestApiService extends Rest {
@@ -18,8 +17,7 @@ class RestApiService extends Rest {
   }) async {
     try {
       if (hasToken) {
-        String token = await LocalStorage().token;
-        headers['Authorization'] = 'bearar $token';
+        headers = await addTokenHeader(headers);
       }
       var uri = Uri.parse(serverAddress + endpoint);
       var response = await http
@@ -43,8 +41,7 @@ class RestApiService extends Rest {
   }) async {
     try {
       if (hasToken) {
-        String token = await LocalStorage().token;
-        headers['Authorization'] = 'bearar $token';
+        headers = await addTokenHeader(headers);
       }
       var uri = Uri.parse(serverAddress + endpoint);
       var response = await http
