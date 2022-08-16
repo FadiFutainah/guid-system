@@ -17,9 +17,15 @@ class SplashPage extends StatelessWidget {
         child: BlocListener<AuthCubit, AuthState>(
           listener: (context, state) {
             if (state is Authenticated) {
-              AutoRouter.of(context).pushNamed(HomeRoute.name);
+              AutoRouter.of(context).pushAndPopUntil(
+                HomeRoute(),
+                predicate: (route) => false,
+              );
             } else if (state is Unauthenticated) {
-              AutoRouter.of(context).pushNamed(LoginRoute.name);
+              AutoRouter.of(context).pushAndPopUntil(
+                const LoginRoute(),
+                predicate: (route) => false,
+              );
             }
           },
           child: const LoadingWidget(),

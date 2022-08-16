@@ -8,14 +8,7 @@ class AuthCubit extends Cubit<AuthState> {
   final UserRepository _userRepository = UserRepository();
 
   AuthCubit() : super(Uninitialized()) {
-    mockStart();
-  }
-
-  // TODO delete mocking
-
-  Future mockStart() async {
-    await Future.delayed(const Duration(seconds: 5));
-    emit(Authenticated());
+    startApp();
   }
 
   Future<void> startApp() async {
