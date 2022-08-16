@@ -14,7 +14,7 @@ abstract class Rest {
     Map<String, String> headers = {};
     String token = await LocalStorage().accessToken;
     headers.addAll(preheaders);
-    headers['Authorization'] = 'Bearer $token';
+    headers['Authorization'] = 'JWT $token';
 
     return headers;
   }
