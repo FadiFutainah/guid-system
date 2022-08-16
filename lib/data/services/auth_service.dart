@@ -7,7 +7,10 @@ class AuthService {
 
   Future<bool> validateToken(String token) async {
     try {
-      await _restApi.post('verify', {'username': token});
+      await _restApi.post(
+        'verify',
+        {'token': token},
+      );
       return true;
     } catch (e) {
       rethrow;
@@ -16,10 +19,11 @@ class AuthService {
 
   Future<bool> login(String username, String password) async {
     try {
-      await _restApi.post(
+      var response = await _restApi.post(
         'create',
         {'username': username, 'password': password},
       );
+      LocalStorage().setTokens(response['access'], response['refresh']);
       return true;
     } catch (e) {
       rethrow;
@@ -27,8 +31,8 @@ class AuthService {
   }
 
   Future<bool> logout() async {
-    await LocalStorage().deleteToken();
-    bool deleted = await LocalStorage().token == '';
+    await LocalStorage().deleteTokens();
+    bool deleted = await LocalStorage().accessToken == '';
     return deleted;
   }
 }
