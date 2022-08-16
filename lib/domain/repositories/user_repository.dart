@@ -6,7 +6,7 @@ class UserRepository {
   final AuthService _authService = AuthService();
 
   Future<bool> hasValidToken() async {
-    String token = await LocalStorage().token;
+    String token = await LocalStorage().accessToken;
     if (token == '') {
       return false;
     } else {
