@@ -16,7 +16,7 @@ class ProfileProvider {
 
   Future<ProfileDto> getMyProfile() async {
     try {
-      var response = await _restApi.get('profile/me', hasToken: true);
+      var response = await _restApi.get('profiles/me/', hasToken: true);
       return ProfileDto.fromMap(response);
     } catch (e) {
       rethrow;
@@ -25,7 +25,7 @@ class ProfileProvider {
 
   Future<ProfileDto> getProfile(int id) async {
     try {
-      var response = await _restApi.get('profile/$id');
+      var response = await _restApi.get('profiles/$id/', hasToken: true);
       return ProfileDto.fromMap(response);
     } catch (e) {
       rethrow;
