@@ -38,6 +38,7 @@ class RestApiService extends Rest {
     Map<String, dynamic> body, {
     Map<String, String> headers = Rest.defaultHeaders,
     bool hasToken = false,
+    bool encode = true,
   }) async {
     try {
       if (hasToken) {
@@ -47,7 +48,7 @@ class RestApiService extends Rest {
       var response = await http
           .post(
             uri,
-            body: body,
+            body: encode ? jsonEncode(body) : body,
             headers: headers,
           )
           .timeout(timeoutDuration);
@@ -74,15 +75,20 @@ class RestApiService extends Rest {
       throw InternetConnectionException();
     } else if (e is TimeoutException) {
       throw WeakInternetConnection();
+    } else if (e is NotFoundException) {
+      throw e;
     } else {
       throw AppException('unexpected error happend');
     }
   }
 
-  dynamic returnResponse(http.Response response) {
+  dynamic returnResponse(http.Response response, {bool decode = true}) {
     switch (response.statusCode) {
       case 200:
-        return jsonDecode(response.body);
+        if (decode) {
+          return jsonDecode(response.body);
+        }
+        return response.body;
       case 201:
         return jsonDecode(response.body);
       case 404:

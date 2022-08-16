@@ -12,7 +12,7 @@ abstract class Rest {
   Future<Map<String, String>> addTokenHeader(
       [preheaders = defaultHeaders]) async {
     Map<String, String> headers = {};
-    String token = await LocalStorage().token;
+    String token = await LocalStorage().accessToken;
     headers.addAll(preheaders);
     headers['Authorization'] = 'Bearer $token';
 
