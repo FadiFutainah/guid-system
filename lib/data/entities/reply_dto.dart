@@ -1,11 +1,17 @@
 import 'dart:convert';
 
+import 'package:app/data/entities/small_profile_dto.dart';
+import 'package:app/data/entities/vote_date_dto.dart';
+
 class ReplyDto {
   int id;
   int userId;
   String content;
   String time;
   int points;
+  bool isMine;
+  VoteDataDto voteData;
+  SmallProfileDto profile;
 
   ReplyDto({
     required this.id,
@@ -13,6 +19,9 @@ class ReplyDto {
     required this.content,
     required this.time,
     required this.points,
+    required this.isMine,
+    required this.voteData,
+    required this.profile,
   });
 
   ReplyDto copyWith({
@@ -21,6 +30,9 @@ class ReplyDto {
     String? content,
     String? time,
     int? points,
+    bool? isMine,
+    VoteDataDto? voteData,
+    SmallProfileDto? profile,
   }) {
     return ReplyDto(
       id: id ?? this.id,
@@ -28,6 +40,9 @@ class ReplyDto {
       content: content ?? this.content,
       time: time ?? this.time,
       points: points ?? this.points,
+      isMine: isMine ?? this.isMine,
+      voteData: voteData ?? this.voteData,
+      profile: profile ?? this.profile,
     );
   }
 
@@ -38,6 +53,9 @@ class ReplyDto {
       'content': content,
       'time': time,
       'points': points,
+      'isMine': isMine,
+      'voteData': voteData.toMap(),
+      'profile': profile.toMap(),
     };
   }
 
@@ -48,6 +66,9 @@ class ReplyDto {
       content: map['content'] ?? '',
       time: map['time'] ?? '',
       points: map['points']?.toInt() ?? 0,
+      isMine: map['isMine'] ?? false,
+      voteData: VoteDataDto.fromMap(map['voteData']),
+      profile: SmallProfileDto.fromMap(map['profile']),
     );
   }
 
@@ -58,7 +79,7 @@ class ReplyDto {
 
   @override
   String toString() {
-    return 'ReplyDto(id: $id, userId: $userId, content: $content, time: $time, points: $points)';
+    return 'ReplyDto(id: $id, userId: $userId, content: $content, time: $time, points: $points, isMine: $isMine, voteData: $voteData, profile: $profile)';
   }
 
   @override
@@ -70,7 +91,10 @@ class ReplyDto {
         other.userId == userId &&
         other.content == content &&
         other.time == time &&
-        other.points == points;
+        other.points == points &&
+        other.isMine == isMine &&
+        other.voteData == voteData &&
+        other.profile == profile;
   }
 
   @override
@@ -79,6 +103,9 @@ class ReplyDto {
         userId.hashCode ^
         content.hashCode ^
         time.hashCode ^
-        points.hashCode;
+        points.hashCode ^
+        isMine.hashCode ^
+        voteData.hashCode ^
+        profile.hashCode;
   }
 }

@@ -1,18 +1,18 @@
 import 'dart:convert';
 
-class VoteDateDto {
+class VoteDataDto {
   int voteValue;
   bool isMyVoteExist;
-  VoteDateDto({
+  VoteDataDto({
     required this.voteValue,
     required this.isMyVoteExist,
   });
 
-  VoteDateDto copyWith({
+  VoteDataDto copyWith({
     int? voteValue,
     bool? isMyVoteExist,
   }) {
-    return VoteDateDto(
+    return VoteDataDto(
       voteValue: voteValue ?? this.voteValue,
       isMyVoteExist: isMyVoteExist ?? this.isMyVoteExist,
     );
@@ -25,8 +25,8 @@ class VoteDateDto {
     };
   }
 
-  factory VoteDateDto.fromMap(Map<String, dynamic> map) {
-    return VoteDateDto(
+  factory VoteDataDto.fromMap(Map<String, dynamic> map) {
+    return VoteDataDto(
       voteValue: map['voteValue']?.toInt() ?? 0,
       isMyVoteExist: map['isMyVoteExist'] ?? false,
     );
@@ -34,8 +34,8 @@ class VoteDateDto {
 
   String toJson() => json.encode(toMap());
 
-  factory VoteDateDto.fromJson(String source) =>
-      VoteDateDto.fromMap(json.decode(source));
+  factory VoteDataDto.fromJson(String source) =>
+      VoteDataDto.fromMap(json.decode(source));
 
   @override
   String toString() =>
@@ -45,7 +45,7 @@ class VoteDateDto {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is VoteDateDto &&
+    return other is VoteDataDto &&
         other.voteValue == voteValue &&
         other.isMyVoteExist == isMyVoteExist;
   }

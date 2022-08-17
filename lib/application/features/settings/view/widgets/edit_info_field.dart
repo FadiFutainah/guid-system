@@ -5,18 +5,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EditInfoField extends StatelessWidget {
   final String field;
+  final int? maxLines;
   final Function(String key, String value)? onChanged;
 
   const EditInfoField({
     Key? key,
     required this.field,
     this.onChanged,
+    this.maxLines,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InputField(
       label: field,
+      maxLines: maxLines,
       labelStyle: Theme.of(context).textTheme.headline6,
       onChanged: (value) {
         onChanged != null

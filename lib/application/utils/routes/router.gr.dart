@@ -25,6 +25,7 @@ import 'package:app/application/features/project/view/add_project_page.dart'
     as _i9;
 import 'package:app/application/features/settings/view/settings_page.dart'
     as _i8;
+import 'package:app/data/entities/forum_dto.dart' as _i12;
 import 'package:auto_route/auto_route.dart' as _i10;
 import 'package:flutter/material.dart' as _i11;
 
@@ -62,10 +63,10 @@ class AppRouter extends _i10.RootStackRouter {
           child: _i5.ForeignProfilePage(key: args.key, id: args.id));
     },
     ForumRoute.name: (routeData) {
-      final args = routeData.argsAs<ForumRouteArgs>(
-          orElse: () => const ForumRouteArgs());
+      final args = routeData.argsAs<ForumRouteArgs>();
       return _i10.AdaptivePage<dynamic>(
-          routeData: routeData, child: _i6.ForumPage(key: args.key));
+          routeData: routeData,
+          child: _i6.ForumPage(key: args.key, forum: args.forum));
     },
     AddForumRoute.name: (routeData) {
       return _i10.AdaptivePage<dynamic>(
@@ -183,21 +184,23 @@ class ForeignProfileRouteArgs {
 /// generated route for
 /// [_i6.ForumPage]
 class ForumRoute extends _i10.PageRouteInfo<ForumRouteArgs> {
-  ForumRoute({_i11.Key? key})
+  ForumRoute({_i11.Key? key, required _i12.ForumDto forum})
       : super(ForumRoute.name,
-            path: '/forum-page', args: ForumRouteArgs(key: key));
+            path: '/forum-page', args: ForumRouteArgs(key: key, forum: forum));
 
   static const String name = 'ForumRoute';
 }
 
 class ForumRouteArgs {
-  const ForumRouteArgs({this.key});
+  const ForumRouteArgs({this.key, required this.forum});
 
   final _i11.Key? key;
 
+  final _i12.ForumDto forum;
+
   @override
   String toString() {
-    return 'ForumRouteArgs{key: $key}';
+    return 'ForumRouteArgs{key: $key, forum: $forum}';
   }
 }
 

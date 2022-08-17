@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import 'package:app/data/entities/reply_dto.dart';
+import 'package:app/data/entities/small_profile_dto.dart';
 
 import 'tag_dto.dart';
 import 'vote_date_dto.dart';
@@ -17,8 +18,9 @@ class ForumDto {
   int points;
   bool isClosed;
   bool isMine;
-  VoteDateDto voteData;
-  ReplyDto closedReply;
+  VoteDataDto voteData;
+  ReplyDto? closedReply;
+  SmallProfileDto profile;
   List<TagDto> tags;
   ForumDto({
     required this.id,
@@ -31,7 +33,8 @@ class ForumDto {
     required this.isClosed,
     required this.isMine,
     required this.voteData,
-    required this.closedReply,
+    this.closedReply,
+    required this.profile,
     required this.tags,
   });
 
@@ -45,8 +48,9 @@ class ForumDto {
     int? points,
     bool? isClosed,
     bool? isMine,
-    VoteDateDto? voteData,
+    VoteDataDto? voteData,
     ReplyDto? closedReply,
+    SmallProfileDto? profile,
     List<TagDto>? tags,
   }) {
     return ForumDto(
@@ -61,6 +65,7 @@ class ForumDto {
       isMine: isMine ?? this.isMine,
       voteData: voteData ?? this.voteData,
       closedReply: closedReply ?? this.closedReply,
+      profile: profile ?? this.profile,
       tags: tags ?? this.tags,
     );
   }
@@ -77,7 +82,8 @@ class ForumDto {
       'isClosed': isClosed,
       'isMine': isMine,
       'voteData': voteData.toMap(),
-      'closedReply': closedReply.toMap(),
+      'closedReply': closedReply?.toMap(),
+      'profile': profile.toMap(),
       'tags': tags.map((x) => x.toMap()).toList(),
     };
   }
@@ -93,8 +99,11 @@ class ForumDto {
       points: map['points']?.toInt() ?? 0,
       isClosed: map['isClosed'] ?? false,
       isMine: map['isMine'] ?? false,
-      voteData: VoteDateDto.fromMap(map['voteData']),
-      closedReply: ReplyDto.fromMap(map['closedReply']),
+      voteData: VoteDataDto.fromMap(map['voteData']),
+      closedReply: map['closedReply'] != null
+          ? ReplyDto.fromMap(map['closedReply'])
+          : null,
+      profile: SmallProfileDto.fromMap(map['profile']),
       tags: List<TagDto>.from(map['tags']?.map((x) => TagDto.fromMap(x))),
     );
   }
@@ -106,7 +115,7 @@ class ForumDto {
 
   @override
   String toString() {
-    return 'ForumDto(id: $id, userId: $userId, title: $title, content: $content, isQuestion: $isQuestion, time: $time, points: $points, isClosed: $isClosed, isMine: $isMine, voteData: $voteData, closedReply: $closedReply, tags: $tags)';
+    return 'ForumDto(id: $id, userId: $userId, title: $title, content: $content, isQuestion: $isQuestion, time: $time, points: $points, isClosed: $isClosed, isMine: $isMine, voteData: $voteData, closedReply: $closedReply, smallProfileDto: $profile, tags: $tags)';
   }
 
   @override
@@ -125,6 +134,7 @@ class ForumDto {
         other.isMine == isMine &&
         other.voteData == voteData &&
         other.closedReply == closedReply &&
+        other.profile == profile &&
         listEquals(other.tags, tags);
   }
 
@@ -141,6 +151,7 @@ class ForumDto {
         isMine.hashCode ^
         voteData.hashCode ^
         closedReply.hashCode ^
+        profile.hashCode ^
         tags.hashCode;
   }
 }

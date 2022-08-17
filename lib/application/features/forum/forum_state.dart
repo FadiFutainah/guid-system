@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+part of 'forum_cubit.dart';
 
 abstract class ForumState extends Equatable {
   @override
@@ -9,4 +9,13 @@ class InitialState extends ForumState {}
 
 class Loading extends ForumState {}
 
-class Success extends ForumState {}
+class Failed extends ForumState {}
+
+class Success extends ForumState {
+  final List<ReplyDto> replies;
+
+  Success(this.replies);
+
+  @override
+  List<Object?> get props => [replies];
+}

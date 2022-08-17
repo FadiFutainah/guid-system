@@ -12,6 +12,7 @@ class InputField extends StatelessWidget {
   final String? error;
   final TextStyle? labelStyle;
   final IconData? icon;
+  final int? maxLines;
 
   const InputField({
     Key? key,
@@ -26,6 +27,7 @@ class InputField extends StatelessWidget {
     this.labelStyle,
     this.onIconPressed,
     this.keyboard = TextInputType.text,
+    this.maxLines,
   }) : super(key: key);
 
   @override
@@ -43,6 +45,7 @@ class InputField extends StatelessWidget {
             style: Theme.of(context).textTheme.headline6,
             onChanged: onChanged,
             keyboardType: keyboard,
+            maxLines: maxLines,
             obscureText: (isPassword) ? !isPasswordVisible : false,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
