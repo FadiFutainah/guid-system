@@ -4,6 +4,7 @@ import 'package:app/data/entities/project_dto.dart';
 import 'package:app/data/entities/project_tool_dto.dart';
 import 'package:app/data/entities/small_profile_dto.dart';
 import 'package:app/data/providers/profile_provider.dart';
+import 'package:app/data/services/local_storage.dart';
 import 'package:app/domain/models/about_me_model.dart';
 import 'package:app/domain/models/about_model.dart';
 import 'package:app/domain/models/contact_model.dart';
@@ -170,6 +171,7 @@ class ProfileRepository extends BaseRepository {
     var response = await getData(_profileProvider.getMyProfile);
     if (!response.hasError) {
       ProfileDto dto = response.data;
+      LocalStorage().setUserId(dto.userId);
       response.data = _profileMapper(dto);
     }
     return response;
@@ -182,5 +184,26 @@ class ProfileRepository extends BaseRepository {
       response.data = _profileMapper(dto);
     }
     return response;
+  }
+
+  Future<ResponseModel> editBasicInfo(Map<String, String> info) async {
+    try {
+      int id = await LocalStorage().userId;
+      var response = await _profileProvider.editProfile(id, info);
+      return ResponseModel(response, false);
+    } catch (e) {
+      return ResponseModel(e.toString(), true);
+    }
+  }
+
+  Future addProject(Map<String, dynamic> project) async {
+    try {
+      int id = await LocalStorage().userId;
+
+      var response = await _profileProvider.addMembership(id, project);
+      return ResponseModel(response, false);
+    } catch (e) {
+      return ResponseModel(e.toString(), true);
+    }
   }
 }

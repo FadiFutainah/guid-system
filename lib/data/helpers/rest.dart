@@ -25,4 +25,5 @@ abstract class Rest {
   dynamic post(String endpoint, Map<String, dynamic> body);
   dynamic put(String endpoint);
   dynamic delete(String endpoint);
+  dynamic patch(String endpoint, Map<String, dynamic> body);
 }

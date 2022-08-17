@@ -2,8 +2,8 @@ import 'package:app/data/helpers/restapi_service.dart';
 import 'package:app/data/entities/profile_dto.dart';
 
 class ProfileProvider {
-  final RestApiService _restApi =
-      RestApiService('http://127.0.0.1:8088/api/student-profile/');
+  final RestApiService _restApi = RestApiService(
+      'https://guide-system-backend.herokuapp.com/api/student-profile/');
 
   Future<List<ProfileDto>> getProfiles() async {
     try {
@@ -32,7 +32,25 @@ class ProfileProvider {
     }
   }
 
-  Future editProfile() {
-    throw UnimplementedError();
+  Future editProfile(int id, Map<String, String> body) async {
+    try {
+      await _restApi.patch('profiles/$id/', body, hasToken: true);
+      return 'data edited successfully';
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future addMembership(int id, Map<String, dynamic> body) async {
+    try {
+      await _restApi.addProjectRequest(
+        'profiles/$id/memberships/',
+        body,
+        hasToken: true,
+      );
+      return 'project added successfully';
+    } catch (e) {
+      rethrow;
+    }
   }
 }

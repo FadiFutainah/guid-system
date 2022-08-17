@@ -81,6 +81,7 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> login(String username, String password) async {
+    emit(Loading());
     final ResponseModel response = await _userRepository.login(
       username,
       password,
@@ -94,6 +95,8 @@ class LoginCubit extends Cubit<LoginState> {
   }
 
   Future<void> logout() async {
+    emit(Loading());
+
     final ResponseModel response = await _userRepository.logout();
 
     if (response.hasError) {

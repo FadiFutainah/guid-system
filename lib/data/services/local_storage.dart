@@ -19,9 +19,20 @@ class LocalStorage {
     sharedPreferences.setString('refreshToken', refresh);
   }
 
+  Future<void> setUserId(int id) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    sharedPreferences.setInt('userId', id);
+  }
+
+  Future<int> get userId async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getInt('userId') ?? -1;
+  }
+
   Future<void> deleteTokens() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.remove('accessToken');
     sharedPreferences.remove('refreshToken');
+    sharedPreferences.remove('userId');
   }
 }

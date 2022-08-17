@@ -10,6 +10,7 @@ class InputField extends StatelessWidget {
   final void Function(String)? onChanged;
   final VoidCallback? onIconPressed;
   final String? error;
+  final TextStyle? labelStyle;
   final IconData? icon;
 
   const InputField({
@@ -22,6 +23,7 @@ class InputField extends StatelessWidget {
     this.isPassword = false,
     this.hasIcon = false,
     this.isPasswordVisible = false,
+    this.labelStyle,
     this.onIconPressed,
     this.keyboard = TextInputType.text,
   }) : super(key: key);
@@ -35,7 +37,7 @@ class InputField extends StatelessWidget {
         children: [
           Text(
             label ?? '',
-            style: Theme.of(context).textTheme.headline4,
+            style: labelStyle ?? Theme.of(context).textTheme.headline4,
           ),
           TextFormField(
             style: Theme.of(context).textTheme.headline6,

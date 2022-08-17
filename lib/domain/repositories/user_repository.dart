@@ -10,7 +10,11 @@ class UserRepository {
     if (token == '') {
       return false;
     } else {
-      return _authService.validateToken(token);
+      try {
+        return await _authService.validateToken(token);
+      } catch (e) {
+        return false;
+      }
     }
   }
 

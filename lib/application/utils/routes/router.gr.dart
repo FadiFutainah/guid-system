@@ -20,67 +20,85 @@ import 'package:app/application/features/foreign_profile/view/foreign_profile_pa
 import 'package:app/application/features/forum/view/forum_page.dart' as _i6;
 import 'package:app/application/features/home/view/home_page.dart' as _i3;
 import 'package:app/application/features/login/view/login_page.dart' as _i2;
-import 'package:app/application/features/profile/view/my_profile_page.dart'
-    as _i4;
-import 'package:auto_route/auto_route.dart' as _i8;
-import 'package:flutter/material.dart' as _i9;
+import 'package:app/application/features/profile/view/profile_page.dart' as _i4;
+import 'package:app/application/features/project/view/add_project_page.dart'
+    as _i9;
+import 'package:app/application/features/settings/view/settings_page.dart'
+    as _i8;
+import 'package:auto_route/auto_route.dart' as _i10;
+import 'package:flutter/material.dart' as _i11;
 
-class AppRouter extends _i8.RootStackRouter {
-  AppRouter([_i9.GlobalKey<_i9.NavigatorState>? navigatorKey])
+class AppRouter extends _i10.RootStackRouter {
+  AppRouter([_i11.GlobalKey<_i11.NavigatorState>? navigatorKey])
       : super(navigatorKey);
 
   @override
-  final Map<String, _i8.PageFactory> pagesMap = {
+  final Map<String, _i10.PageFactory> pagesMap = {
     SplashRoute.name: (routeData) {
-      return _i8.AdaptivePage<dynamic>(
+      return _i10.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i1.SplashPage());
     },
     LoginRoute.name: (routeData) {
-      return _i8.AdaptivePage<dynamic>(
+      return _i10.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i2.LoginPage());
     },
     HomeRoute.name: (routeData) {
       final args =
           routeData.argsAs<HomeRouteArgs>(orElse: () => const HomeRouteArgs());
-      return _i8.AdaptivePage<dynamic>(
+      return _i10.AdaptivePage<dynamic>(
           routeData: routeData, child: _i3.HomePage(key: args.key));
     },
-    MyProfileRoute.name: (routeData) {
-      return _i8.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i4.MyProfilePage());
+    ProfileRoute.name: (routeData) {
+      final args = routeData.argsAs<ProfileRouteArgs>(
+          orElse: () => const ProfileRouteArgs());
+      return _i10.AdaptivePage<dynamic>(
+          routeData: routeData,
+          child: _i4.ProfilePage(key: args.key, id: args.id));
     },
     ForeignProfileRoute.name: (routeData) {
-      return _i8.AdaptivePage<dynamic>(
-          routeData: routeData, child: const _i5.ForeignProfilePage());
+      final args = routeData.argsAs<ForeignProfileRouteArgs>();
+      return _i10.AdaptivePage<dynamic>(
+          routeData: routeData,
+          child: _i5.ForeignProfilePage(key: args.key, id: args.id));
     },
     ForumRoute.name: (routeData) {
       final args = routeData.argsAs<ForumRouteArgs>(
           orElse: () => const ForumRouteArgs());
-      return _i8.AdaptivePage<dynamic>(
+      return _i10.AdaptivePage<dynamic>(
           routeData: routeData, child: _i6.ForumPage(key: args.key));
     },
     AddForumRoute.name: (routeData) {
-      return _i8.AdaptivePage<dynamic>(
+      return _i10.AdaptivePage<dynamic>(
           routeData: routeData, child: const _i7.AddForumPage());
+    },
+    SettingsRoute.name: (routeData) {
+      return _i10.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i8.SettingsPage());
+    },
+    AddProjectRoute.name: (routeData) {
+      return _i10.AdaptivePage<dynamic>(
+          routeData: routeData, child: const _i9.AddProjectPage());
     }
   };
 
   @override
-  List<_i8.RouteConfig> get routes => [
-        _i8.RouteConfig(SplashRoute.name, path: '/'),
-        _i8.RouteConfig(LoginRoute.name, path: '/login-page'),
-        _i8.RouteConfig(HomeRoute.name, path: '/home-page'),
-        _i8.RouteConfig(MyProfileRoute.name, path: '/my-profile-page'),
-        _i8.RouteConfig(ForeignProfileRoute.name,
+  List<_i10.RouteConfig> get routes => [
+        _i10.RouteConfig(SplashRoute.name, path: '/'),
+        _i10.RouteConfig(LoginRoute.name, path: '/login-page'),
+        _i10.RouteConfig(HomeRoute.name, path: '/home-page'),
+        _i10.RouteConfig(ProfileRoute.name, path: '/profile-page'),
+        _i10.RouteConfig(ForeignProfileRoute.name,
             path: '/foreign-profile-page'),
-        _i8.RouteConfig(ForumRoute.name, path: '/forum-page'),
-        _i8.RouteConfig(AddForumRoute.name, path: '/add-forum-page')
+        _i10.RouteConfig(ForumRoute.name, path: '/forum-page'),
+        _i10.RouteConfig(AddForumRoute.name, path: '/add-forum-page'),
+        _i10.RouteConfig(SettingsRoute.name, path: '/settings-page'),
+        _i10.RouteConfig(AddProjectRoute.name, path: '/add-project-page')
       ];
 }
 
 /// generated route for
 /// [_i1.SplashPage]
-class SplashRoute extends _i8.PageRouteInfo<void> {
+class SplashRoute extends _i10.PageRouteInfo<void> {
   const SplashRoute() : super(SplashRoute.name, path: '/');
 
   static const String name = 'SplashRoute';
@@ -88,7 +106,7 @@ class SplashRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.LoginPage]
-class LoginRoute extends _i8.PageRouteInfo<void> {
+class LoginRoute extends _i10.PageRouteInfo<void> {
   const LoginRoute() : super(LoginRoute.name, path: '/login-page');
 
   static const String name = 'LoginRoute';
@@ -96,8 +114,8 @@ class LoginRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.HomePage]
-class HomeRoute extends _i8.PageRouteInfo<HomeRouteArgs> {
-  HomeRoute({_i9.Key? key})
+class HomeRoute extends _i10.PageRouteInfo<HomeRouteArgs> {
+  HomeRoute({_i11.Key? key})
       : super(HomeRoute.name,
             path: '/home-page', args: HomeRouteArgs(key: key));
 
@@ -107,7 +125,7 @@ class HomeRoute extends _i8.PageRouteInfo<HomeRouteArgs> {
 class HomeRouteArgs {
   const HomeRouteArgs({this.key});
 
-  final _i9.Key? key;
+  final _i11.Key? key;
 
   @override
   String toString() {
@@ -116,26 +134,56 @@ class HomeRouteArgs {
 }
 
 /// generated route for
-/// [_i4.MyProfilePage]
-class MyProfileRoute extends _i8.PageRouteInfo<void> {
-  const MyProfileRoute() : super(MyProfileRoute.name, path: '/my-profile-page');
+/// [_i4.ProfilePage]
+class ProfileRoute extends _i10.PageRouteInfo<ProfileRouteArgs> {
+  ProfileRoute({_i11.Key? key, int? id})
+      : super(ProfileRoute.name,
+            path: '/profile-page', args: ProfileRouteArgs(key: key, id: id));
 
-  static const String name = 'MyProfileRoute';
+  static const String name = 'ProfileRoute';
+}
+
+class ProfileRouteArgs {
+  const ProfileRouteArgs({this.key, this.id});
+
+  final _i11.Key? key;
+
+  final int? id;
+
+  @override
+  String toString() {
+    return 'ProfileRouteArgs{key: $key, id: $id}';
+  }
 }
 
 /// generated route for
 /// [_i5.ForeignProfilePage]
-class ForeignProfileRoute extends _i8.PageRouteInfo<void> {
-  const ForeignProfileRoute()
-      : super(ForeignProfileRoute.name, path: '/foreign-profile-page');
+class ForeignProfileRoute extends _i10.PageRouteInfo<ForeignProfileRouteArgs> {
+  ForeignProfileRoute({_i11.Key? key, required int id})
+      : super(ForeignProfileRoute.name,
+            path: '/foreign-profile-page',
+            args: ForeignProfileRouteArgs(key: key, id: id));
 
   static const String name = 'ForeignProfileRoute';
 }
 
+class ForeignProfileRouteArgs {
+  const ForeignProfileRouteArgs({this.key, required this.id});
+
+  final _i11.Key? key;
+
+  final int id;
+
+  @override
+  String toString() {
+    return 'ForeignProfileRouteArgs{key: $key, id: $id}';
+  }
+}
+
 /// generated route for
 /// [_i6.ForumPage]
-class ForumRoute extends _i8.PageRouteInfo<ForumRouteArgs> {
-  ForumRoute({_i9.Key? key})
+class ForumRoute extends _i10.PageRouteInfo<ForumRouteArgs> {
+  ForumRoute({_i11.Key? key})
       : super(ForumRoute.name,
             path: '/forum-page', args: ForumRouteArgs(key: key));
 
@@ -145,7 +193,7 @@ class ForumRoute extends _i8.PageRouteInfo<ForumRouteArgs> {
 class ForumRouteArgs {
   const ForumRouteArgs({this.key});
 
-  final _i9.Key? key;
+  final _i11.Key? key;
 
   @override
   String toString() {
@@ -155,8 +203,25 @@ class ForumRouteArgs {
 
 /// generated route for
 /// [_i7.AddForumPage]
-class AddForumRoute extends _i8.PageRouteInfo<void> {
+class AddForumRoute extends _i10.PageRouteInfo<void> {
   const AddForumRoute() : super(AddForumRoute.name, path: '/add-forum-page');
 
   static const String name = 'AddForumRoute';
+}
+
+/// generated route for
+/// [_i8.SettingsPage]
+class SettingsRoute extends _i10.PageRouteInfo<void> {
+  const SettingsRoute() : super(SettingsRoute.name, path: '/settings-page');
+
+  static const String name = 'SettingsRoute';
+}
+
+/// generated route for
+/// [_i9.AddProjectPage]
+class AddProjectRoute extends _i10.PageRouteInfo<void> {
+  const AddProjectRoute()
+      : super(AddProjectRoute.name, path: '/add-project-page');
+
+  static const String name = 'AddProjectRoute';
 }

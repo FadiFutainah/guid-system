@@ -2,7 +2,6 @@ import 'package:app/application/features/login/login_cubit.dart';
 import 'package:app/application/features/login/view/widgets/submit_button.dart';
 import 'package:app/application/utils/config/app_functions.dart';
 import 'package:app/application/utils/routes/router.gr.dart';
-import 'package:app/application/widgets/loading_widget.dart';
 import 'package:app/application/widgets/top_bar.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -30,7 +29,7 @@ class LoginPage extends StatelessWidget {
       child: BlocListener<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is Failed) {
-            AppFunctions.showErrorSnackBar(
+            AppFunctions.showSnackBar(
               context,
               state.message,
               Colors.red,
@@ -40,17 +39,17 @@ class LoginPage extends StatelessWidget {
               HomeRoute(),
               predicate: (route) => false,
             );
-            AppFunctions.showErrorSnackBar(
+            AppFunctions.showSnackBar(
               context,
               'Logged in Successfully',
               Colors.green,
             );
           } else if (state is Loading) {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return const LoadingWidget();
-              },
+            AppFunctions.showSnackBar(
+              context,
+              'waiting...',
+              Colors.black54,
+              seconds: 30,
             );
           }
         },

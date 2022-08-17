@@ -15,10 +15,10 @@ class AuthCubit extends Cubit<AuthState> {
     emit(Loading());
     final bool hasToken = await _userRepository.hasValidToken();
 
-    if (hasToken) {
-      emit(Authenticated());
-    } else {
+    if (!hasToken) {
       emit(Unauthenticated());
+      return;
     }
+    emit(Authenticated());
   }
 }

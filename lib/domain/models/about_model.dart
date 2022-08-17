@@ -30,4 +30,11 @@ class AboutModel {
     }
     return 'female';
   }
+
+  String getGraduateDate() {
+    if (graduateDate == '') {
+      return 'uncertain';
+    }
+    return graduateDate;
+  }
 }

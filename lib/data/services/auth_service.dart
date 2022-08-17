@@ -3,7 +3,7 @@ import 'package:app/data/services/local_storage.dart';
 
 class AuthService {
   final RestApiService _restApi =
-      RestApiService('http://127.0.0.1:8088/auth/jwt/');
+      RestApiService('https://guide-system-backend.herokuapp.com/auth/jwt/');
 
   Future<bool> validateToken(String token) async {
     try {
