@@ -1,6 +1,7 @@
 import 'package:app/application/features/login/login_cubit.dart';
 import 'package:app/application/features/login/view/widgets/submit_button.dart';
 import 'package:app/application/utils/config/app_functions.dart';
+import 'package:app/application/utils/config/config.dart';
 import 'package:app/application/utils/routes/router.gr.dart';
 import 'package:app/application/widgets/top_bar.dart';
 import 'package:auto_route/auto_route.dart';
@@ -48,14 +49,17 @@ class LoginPage extends StatelessWidget {
             AppFunctions.showSnackBar(
               context,
               'waiting...',
-              Colors.black54,
+              Colors.black87,
               seconds: 30,
             );
           }
         },
         child: Scaffold(
           backgroundColor: Colors.grey[100],
-          appBar: const TopBar(text: 'WELCOME'),
+          appBar: const TopBar(
+            text: 'WELCOME',
+            actions: [ChangeDomainWidget()],
+          ),
           body: SingleChildScrollView(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -90,6 +94,7 @@ class LoginPage extends StatelessWidget {
                         builder: (context, state) {
                           return InputField(
                             label: 'username',
+                            maxLines: 1,
                             onChanged:
                                 context.read<LoginCubit>().usernameChanged,
                             error:
@@ -102,6 +107,7 @@ class LoginPage extends StatelessWidget {
                         builder: (context, state) {
                           return InputField(
                             label: 'password',
+                            maxLines: 1,
                             onChanged:
                                 context.read<LoginCubit>().passwordChanged,
                             error:
@@ -134,5 +140,52 @@ class LoginPage extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class ChangeDomainWidget extends StatelessWidget {
+  const ChangeDomainWidget({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    String textFieldDomain = '';
+
+    return IconButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => Dialog(
+              child: SizedBox(
+                height: 200,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      width: 300,
+                      child: InputField(
+                        label: 'domain',
+                        onChanged: (value) {
+                          textFieldDomain = value;
+                        },
+                      ),
+                    ),
+                    IconButton(
+                      icon: const Icon(
+                        Icons.add,
+                        color: Colors.black,
+                      ),
+                      onPressed: () {
+                        domain = textFieldDomain;
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+        icon: const Icon(Icons.add));
   }
 }

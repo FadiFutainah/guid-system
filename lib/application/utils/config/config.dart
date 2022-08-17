@@ -17,3 +17,5 @@ final List<Page> homePages = [
   Page(title: 'ROADMAPS', page: const RoadmapsPage()),
   Page(title: 'DISCUSSIONS', page: const AllForumsPage()),
 ];
+
+String domain = 'https://guide-system-backend.herokuapp.com/';

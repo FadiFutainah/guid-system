@@ -206,4 +206,14 @@ class ProfileRepository extends BaseRepository {
       return ResponseModel(e.toString(), true);
     }
   }
+
+  Future editProfilePhoto(String path) async {
+    try {
+      int id = await LocalStorage().userId;
+      var response = await _profileProvider.editProfilePhoto(id, path);
+      return ResponseModel(response, false);
+    } catch (e) {
+      return ResponseModel(e.toString(), true);
+    }
+  }
 }

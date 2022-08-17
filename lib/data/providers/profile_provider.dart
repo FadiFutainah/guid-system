@@ -1,9 +1,11 @@
+import 'package:app/application/utils/config/config.dart';
 import 'package:app/data/helpers/restapi_service.dart';
 import 'package:app/data/entities/profile_dto.dart';
 
 class ProfileProvider {
-  final RestApiService _restApi = RestApiService(
-      'https://guide-system-backend.herokuapp.com/api/student-profile/');
+  final RestApiService _restApi =
+      // ignore: prefer_interpolation_to_compose_strings
+      RestApiService(domain + 'api/student-profile/');
 
   Future<List<ProfileDto>> getProfiles() async {
     try {
@@ -36,6 +38,19 @@ class ProfileProvider {
     try {
       await _restApi.patch('profiles/$id/', body, hasToken: true);
       return 'data edited successfully';
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future editProfilePhoto(int id, String photoPath) async {
+    try {
+      await _restApi.editProfilePhoto(
+        'profiles/$id/',
+        photoPath,
+        hasToken: true,
+      );
+      return 'photo edited successfully';
     } catch (e) {
       rethrow;
     }

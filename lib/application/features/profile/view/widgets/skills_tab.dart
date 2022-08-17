@@ -1,7 +1,5 @@
 import 'package:app/application/features/profile/profile_cubit.dart';
-import 'package:app/application/features/profile/view/widgets/space.dart';
 import 'package:app/application/widgets/error_message_widget.dart';
-import 'package:app/domain/models/about_me_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -34,20 +32,29 @@ class SkillsTab extends StatelessWidget {
     return current.marksExpanded != previous.marksExpanded;
   }
 
-  Widget _buildServices(BuildContext context, AboutMeModel aboutme) {
-    if (aboutme.isEmpty()) {
+  Widget _buildServices(BuildContext context, String services) {
+    if (services == '') {
       return const ErrorMessageWidget(text: 'nothing added yet');
     }
     return Column(
       children: [
         Text(
-          aboutme.preferences,
+          services,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.subtitle2,
         ),
-        const Space(),
+      ],
+    );
+  }
+
+  Widget _buildPreferences(BuildContext context, String preferences) {
+    if (preferences == '') {
+      return const ErrorMessageWidget(text: 'nothing added yet');
+    }
+    return Column(
+      children: [
         Text(
-          aboutme.services,
+          preferences,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.subtitle2,
         ),
@@ -147,7 +154,28 @@ class SkillsTab extends StatelessWidget {
                 isExpanded: false,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: _buildServices(context, state.profile.aboutme),
+                  child:
+                      _buildServices(context, state.profile.aboutme.services),
+                ),
+              );
+            },
+          ),
+          BlocBuilder<ProfileCubit, ProfileState>(
+            buildWhen: (previous, current) => false,
+            builder: (context, state) {
+              if (state is! Success) {
+                return Container();
+              }
+              return SkillContainer(
+                title: 'Preferences',
+                icon: Icons.assignment_turned_in_outlined,
+                expandFunction: () {},
+                expandable: false,
+                isExpanded: false,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: _buildPreferences(
+                      context, state.profile.aboutme.preferences),
                 ),
               );
             },

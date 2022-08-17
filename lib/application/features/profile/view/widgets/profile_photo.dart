@@ -18,8 +18,8 @@ class ProfilePhoto extends StatelessWidget {
     return CachedNetworkImage(
       imageUrl: photo,
       imageBuilder: (context, imageProvider) => Container(
-        width: 55.0,
-        height: 66.0,
+        width: radius! * 2,
+        height: radius! * 2,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           image: DecorationImage(image: imageProvider, fit: BoxFit.cover),

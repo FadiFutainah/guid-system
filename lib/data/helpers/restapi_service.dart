@@ -61,13 +61,11 @@ class RestApiService extends Rest {
 
   @override
   delete(String endpoint) {
-    // TODO: implement delete
     throw UnimplementedError();
   }
 
   @override
   put(String endpoint) {
-    // TODO: implement put
     throw UnimplementedError();
   }
 
@@ -92,6 +90,35 @@ class RestApiService extends Rest {
           )
           .timeout(timeoutDuration);
       return returnResponse(response);
+    } catch (e) {
+      throwException(e);
+    }
+  }
+
+  Future editProfilePhoto(
+    String endpoint,
+    String photoPath, {
+    Map<String, String> headers = Rest.defaultHeaders,
+    bool hasToken = false,
+    bool encode = true,
+  }) async {
+    try {
+      if (hasToken) {
+        headers = await addTokenHeader(headers);
+      }
+      FormData formData = FormData.fromMap({
+        'photo': await MultipartFile.fromFile(photoPath),
+      });
+
+      var uri = serverAddress + endpoint;
+      var response = await Dio()
+          .patch(
+            uri,
+            data: formData,
+            options: Options(headers: headers),
+          )
+          .timeout(timeoutDuration);
+      return response.data;
     } catch (e) {
       throwException(e);
     }

@@ -35,6 +35,8 @@ class ProfilePage extends StatelessWidget {
                 children: [
                   ProfileCard(
                     card: state.profile.profileCard,
+                    isMine: id == null,
+                    chooseImage: context.read<ProfileCubit>().changePhoto,
                   ),
                   const AppTabBar(),
                   const SizedBox(height: 10),

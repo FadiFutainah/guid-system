@@ -62,4 +62,17 @@ class ProfileCubit extends Cubit<ProfileState> {
   void toggleMarksExpantion(ProfileModel profile, bool value) {
     emit(Success(profile, null, false, false, false, value));
   }
+
+  void changePhoto(String path, ProfileModel profile) async {
+    emit(Loading());
+
+    var response = await _profileRepository.editProfilePhoto(path);
+
+    if (response.hasError) {
+      emit(Failed('photo edit failed'));
+      return;
+    }
+
+    emit(Success(profile, null, false, false, false, false));
+  }
 }
