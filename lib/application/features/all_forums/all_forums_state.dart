@@ -13,8 +13,20 @@ class Failed extends AllForumsState {}
 
 class Success extends AllForumsState {
   final List<ForumDto> forums;
+  final List<OutTagDto> tags;
 
-  Success(this.forums);
+  Success(this.forums, this.tags);
+
+  @override
+  List<Object?> get props => [forums, tags];
+}
+
+class Searching extends AllForumsState {}
+
+class SearchCompleted extends AllForumsState {
+  final List<ForumDto> forums;
+
+  SearchCompleted(this.forums);
 
   @override
   List<Object?> get props => [forums];

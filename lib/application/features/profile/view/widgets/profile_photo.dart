@@ -6,11 +6,14 @@ class ProfilePhoto extends StatelessWidget {
   final String photo;
   final double? radius;
   final double? iconSize;
+  final Widget? errorWidget;
+
   const ProfilePhoto({
     Key? key,
     required this.photo,
     this.radius,
     this.iconSize,
+    this.errorWidget,
   }) : super(key: key);
 
   @override
@@ -26,15 +29,17 @@ class ProfilePhoto extends StatelessWidget {
         ),
       ),
       placeholder: (context, url) => const CircularProgressIndicator(),
-      errorWidget: (context, url, error) => CircleAvatar(
-        radius: radius,
-        backgroundColor: Colors.grey[400],
-        child: Icon(
-          CupertinoIcons.person,
-          size: iconSize,
-          color: Colors.white,
-        ),
-      ),
+      errorWidget: (context, url, error) =>
+          errorWidget ??
+          CircleAvatar(
+            radius: radius,
+            backgroundColor: Colors.grey[400],
+            child: Icon(
+              CupertinoIcons.person,
+              size: iconSize,
+              color: Colors.white,
+            ),
+          ),
     );
   }
 }

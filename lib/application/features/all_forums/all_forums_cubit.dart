@@ -1,5 +1,7 @@
+import 'package:app/data/entities/out_tag_dto.dart';
 import 'package:app/data/providers/forum_provider.dart';
 import 'package:app/domain/repositories/forum_repository.dart';
+import 'package:app/domain/repositories/tag_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:app/data/entities/forum_dto.dart';
 import 'package:equatable/equatable.dart';
@@ -7,15 +9,28 @@ import 'package:equatable/equatable.dart';
 part 'all_forums_state.dart';
 
 class AllForumsCubit extends Cubit<AllForumsState> {
-  AllForumsCubit() : super(AllFotumsInitial()) {
+  AllForumsCubit({
+    required int page,
+    required String search,
+    required Ordering ordering,
+    bool? isQuestion,
+    bool? isClosed,
+    bool? isMine,
+    int? tagID,
+  }) : super(AllFotumsInitial()) {
     getForums(
-      page: 1,
-      search: '',
-      ordering: Ordering.none,
+      page: page,
+      search: search,
+      ordering: ordering,
+      isClosed: isClosed,
+      isMine: isMine,
+      isQuestion: isQuestion,
     );
   }
 
-  Future<void> getForums({
+  List<OutTagDto> tags = [];
+
+  Future<void> applyFilters({
     required int page,
     required String search,
     required Ordering ordering,
@@ -24,7 +39,7 @@ class AllForumsCubit extends Cubit<AllForumsState> {
     bool? isMine,
     int? tagID,
   }) async {
-    emit(Loading());
+    emit(Searching());
 
     var response = await ForumRepository().getForums(
       page: page,
@@ -41,6 +56,43 @@ class AllForumsCubit extends Cubit<AllForumsState> {
       return;
     }
 
-    emit(Success(response.data));
+    emit(Success(response.data, tags));
+  }
+
+  Future<void> getForums({
+    required int page,
+    required String search,
+    required Ordering ordering,
+    bool? isQuestion,
+    bool? isClosed,
+    bool? isMine,
+    int? tagID,
+  }) async {
+    emit(Loading());
+
+    var forums = await ForumRepository().getForums(
+      page: page,
+      search: search,
+      ordering: ordering,
+      isQuestion: isQuestion,
+      isClosed: isClosed,
+      isMine: isMine,
+      tagID: tagID,
+    );
+
+    if (forums.hasError) {
+      emit(Failed());
+      return;
+    }
+    var tags = await TagRepository().getTags();
+
+    this.tags = tags.data;
+
+    if (tags.hasError) {
+      emit(Failed());
+      return;
+    }
+
+    emit(Success(forums.data, tags.data));
   }
 }

@@ -2,6 +2,7 @@ import 'package:app/application/features/profile/view/widgets/devidered_title.da
 import 'package:app/application/features/profile/view/widgets/space.dart';
 import 'package:app/application/utils/routes/router.gr.dart';
 import 'package:app/application/widgets/loading_widget.dart';
+import 'package:app/data/providers/forum_provider.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,14 +12,45 @@ import 'widgets/filter_button.dart';
 import 'widgets/forums_list.dart';
 
 class AllForumsPage extends StatelessWidget {
-  const AllForumsPage({Key? key}) : super(key: key);
+  final int page;
+  final String search;
+  final Ordering ordering;
+  final bool? isQuestion;
+  final bool? isClosed;
+  final bool? isMine;
+  final int? tagID;
+
+  const AllForumsPage(
+      {required this.page,
+      required this.search,
+      required this.ordering,
+      this.isQuestion,
+      this.isClosed,
+      this.isMine,
+      this.tagID,
+      Key? key})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AllForumsCubit(),
+      create: (context) => AllForumsCubit(
+        ordering: ordering,
+        page: page,
+        search: search,
+        isClosed: isClosed,
+        isMine: isMine,
+        isQuestion: isQuestion,
+        tagID: tagID,
+      ),
       child: BlocConsumer<AllForumsCubit, AllForumsState>(
         listener: (context, state) {},
+        buildWhen: (previous, current) {
+          if (current is Searching || current is SearchCompleted) {
+            return false;
+          }
+          return true;
+        },
         builder: (context, state) {
           if (state is Loading) {
             return const LoadingWidget();
@@ -33,9 +65,31 @@ class AllForumsPage extends StatelessWidget {
                       const FilterButton(),
                     ],
                   ),
-                  const DivideredTitle(title: 'RECENTS'),
+                  GestureDetector(
+                    onTap: () {
+                      context.read<AllForumsCubit>().applyFilters(
+                          page: 1, search: '', ordering: Ordering.none);
+                    },
+                    child: const DivideredTitle(title: 'ALL FORUMS'),
+                  ),
                   const Space(),
                   Expanded(child: ForumsList(forums: state.forums)),
+                  const Space(),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  //   children: [
+                  //     AppTextButton(
+                  //       text: '< previous',
+                  //       textStyle: Theme.of(context).textTheme.headline5,
+                  //       onPressed: () {},
+                  //     ),
+                  //     AppTextButton(
+                  //       text: 'next >',
+                  //       textStyle: Theme.of(context).textTheme.headline5,
+                  //       onPressed: () {},
+                  //     ),
+                  //   ],
+                  // ),
                   const Space(),
                 ],
               ),

@@ -12,6 +12,7 @@ import 'reference_child_dto.dart';
 class PageDto {
   final int id;
   final String title;
+  final String type;
   final String background;
   final String icon;
   final String importanceAndAdvantages;
@@ -21,10 +22,10 @@ class PageDto {
   final List<PageFeatureDto> features;
   final List<DependencyChildDto> dependencyChildren;
   final List<ReferenceChildDto> referenceChildren;
-
   const PageDto({
     required this.id,
     required this.title,
+    required this.type,
     required this.background,
     required this.icon,
     required this.importanceAndAdvantages,
@@ -39,6 +40,7 @@ class PageDto {
   PageDto copyWith({
     int? id,
     String? title,
+    String? type,
     String? background,
     String? icon,
     String? importanceAndAdvantages,
@@ -52,6 +54,7 @@ class PageDto {
     return PageDto(
       id: id ?? this.id,
       title: title ?? this.title,
+      type: type ?? this.type,
       background: background ?? this.background,
       icon: icon ?? this.icon,
       importanceAndAdvantages:
@@ -69,6 +72,7 @@ class PageDto {
     return {
       'id': id,
       'title': title,
+      'type': type,
       'background': background,
       'icon': icon,
       'importanceAndAdvantages': importanceAndAdvantages,
@@ -85,6 +89,7 @@ class PageDto {
     return PageDto(
       id: map['id']?.toInt() ?? 0,
       title: map['title'] ?? '',
+      type: map['type'] ?? '',
       background: map['background'] ?? '',
       icon: map['icon'] ?? '',
       importanceAndAdvantages: map['importanceAndAdvantages'] ?? '',
@@ -108,7 +113,7 @@ class PageDto {
 
   @override
   String toString() {
-    return 'PageDto(id: $id, title: $title, background: $background, icon: $icon, importanceAndAdvantages: $importanceAndAdvantages, adviceAndTools: $adviceAndTools, isFinished: $isFinished, contents: $contents, features: $features, dependencyChildren: $dependencyChildren, referenceChildren: $referenceChildren)';
+    return 'PageDto(id: $id, title: $title, type: $type, background: $background, icon: $icon, importanceAndAdvantages: $importanceAndAdvantages, adviceAndTools: $adviceAndTools, isFinished: $isFinished, contents: $contents, features: $features, dependencyChildren: $dependencyChildren, referenceChildren: $referenceChildren)';
   }
 
   @override
@@ -118,6 +123,7 @@ class PageDto {
     return other is PageDto &&
         other.id == id &&
         other.title == title &&
+        other.type == type &&
         other.background == background &&
         other.icon == icon &&
         other.importanceAndAdvantages == importanceAndAdvantages &&
@@ -133,6 +139,7 @@ class PageDto {
   int get hashCode {
     return id.hashCode ^
         title.hashCode ^
+        type.hashCode ^
         background.hashCode ^
         icon.hashCode ^
         importanceAndAdvantages.hashCode ^
